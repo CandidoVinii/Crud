@@ -1,4 +1,4 @@
-import { CHANGE_TASKS } from "../action/action";
+import { CHANGE_TASKS } from '../action/action';
 
 const INITIAL_STATETASKS = {
   task: {
@@ -6,14 +6,14 @@ const INITIAL_STATETASKS = {
   },
 };
 
-export const reducerTasks = ( state = INITIAL_STATETASKS, action ) => {
-  switch(action.type) {
-    case CHANGE_TASKS :
+export const reducerTasks = (state = INITIAL_STATETASKS, action) => {
+  switch (action.type) {
+    case CHANGE_TASKS:
       return {
         ...state,
         task: action.payload,
-      }
-      default:
-        return state
-  };
-}
+      };
+    default:
+      return state;
+  }
+};

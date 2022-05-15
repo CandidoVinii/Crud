@@ -1,4 +1,4 @@
-import { CHANGE_LOGIN } from "../action/action";
+import { CHANGE_LOGIN } from '../action/action';
 
 const INITIAL_STATELOGIN = {
   login: {
@@ -7,15 +7,14 @@ const INITIAL_STATELOGIN = {
   },
 };
 
-
-export const reducerLogin = ( state = INITIAL_STATELOGIN, action ) => {
-  switch(action.type) {
-    case CHANGE_LOGIN :
+export const reducerLogin = (state = INITIAL_STATELOGIN, action) => {
+  switch (action.type) {
+    case CHANGE_LOGIN:
       return {
         ...state,
         login: action.payload,
-      }
+      };
     default:
-      return state
+      return state;
   }
 };

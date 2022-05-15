@@ -9,16 +9,16 @@ class Home extends React.Component {
     this.state = {
       task: '',
       saveTask: [],
-    }
+    };
   }
-  
+
   handleChange = ({ target }) => {
     const { name, value } = target;
     this.setState({
       [name]: value,
-    })
-  }
-  
+    });
+  };
+
   handleClick = () => {
     const { saveTask } = this.state;
     const newTask = this.state;
@@ -31,7 +31,7 @@ class Home extends React.Component {
       saveTask,
     });
     changeData({ saveTask });
-  }
+  };
 
   removeTask = (e) => {
     const { saveTask } = this.state;
@@ -39,61 +39,56 @@ class Home extends React.Component {
     const newArr = saveTask.splice(taskName, [taskName]);
     console.log(newArr);
     this.setState({ saveTask: newArr });
-  }
-  
+  };
+
   render() {
     const { task, saveTask, date } = this.state;
     console.log(saveTask);
     // console.log(saveTask)
-    return(
+    return (
       <div>
         <form action="">
           <input
-            value={ task }
+            value={task}
             name="task"
             type="text"
-            onChange={ this.handleChange }
+            onChange={this.handleChange}
             placeholder="digite uma nova tarefa"
           />
-          <button
-            type="button"
-            onClick={ this.handleClick }
-          >
+          <button type="button" onClick={this.handleClick}>
             Adicionar
           </button>
         </form>
-        {
-          saveTask.length <= 0 ? <p>Nenhuma Tarefa</p>
-          :
+        {saveTask.length <= 0 ? (
+          <p>Nenhuma Tarefa</p>
+        ) : (
           saveTask.map((tarefa, index) => (
-            <div
-              key={index}
-            >
-              <p
-                name={index}
-              >
+            <div key={index}>
+              <p name={index}>
                 {tarefa.task}
                 <br />
                 {date}
               </p>
               <button
                 type="button"
-                name={ tarefa.task }
+                name={tarefa.task}
                 id={index}
-                onClick={ this.removeTask }
+                onClick={this.removeTask}
               >
                 Finalizar Tarefa
               </button>
             </div>
-            ))
-          }
+          ))
+        )}
       </div>
-    )
+    );
   }
-};
+}
 
 const mapDispatchToProps = (dispatch) => ({
-  changeData: (state) => { dispatch(changeTasks(state)); },
+  changeData: (state) => {
+    dispatch(changeTasks(state));
+  },
 });
 
 export default connect(null, mapDispatchToProps)(Home);
