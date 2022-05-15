@@ -1,13 +1,21 @@
-const INITIAL_STATETASKS = {
-  nome: '',
-  descricao: '',
-  estado: '',
-};
+import { CHANGE_TASKS } from "../action/action";
 
+const INITIAL_STATETASKS = {
+  task: {
+    tasks: [],
+  },
+};
 
 export const reducerTasks = ( state = INITIAL_STATETASKS, action ) => {
   switch(action.type) {
-    default:
-      return state
+    case CHANGE_TASKS :
+      console.log(action);
+      return {
+        
+        ...state,
+        task: action.payload,
+      }
+      default:
+        return state
   }
 }
