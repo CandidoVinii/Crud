@@ -27,14 +27,24 @@ class Home extends React.Component {
     saveTask.push(newTask);
     this.setState({
       task: '',
-      date: new Date(),
+      date: new Date().toDateString(),
       saveTask,
     });
     changeData({ saveTask });
   }
+
+  removeTask = (e) => {
+    const { saveTask } = this.state;
+    const taskName = e.target.id;
+    const newArr = saveTask.splice(taskName, [taskName]);
+    console.log(newArr);
+    this.setState({ saveTask: newArr });
+  }
+  
   render() {
     const { task, saveTask, date } = this.state;
-    console.log(saveTask, date)
+    console.log(saveTask);
+    // console.log(saveTask)
     return(
       <div>
         <form action="">
@@ -55,9 +65,25 @@ class Home extends React.Component {
         {
           saveTask.length <= 0 ? <p>Nenhuma Tarefa</p>
           :
-          saveTask.map((tarefa) => (
-            <div>
-              <p>{tarefa.task}</p>
+          saveTask.map((tarefa, index) => (
+            <div
+              key={index}
+            >
+              <p
+                name={index}
+              >
+                {tarefa.task}
+                <br />
+                {date}
+              </p>
+              <button
+                type="button"
+                name={ tarefa.task }
+                id={index}
+                onClick={ this.removeTask }
+              >
+                Finalizar Tarefa
+              </button>
             </div>
             ))
           }
