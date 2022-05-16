@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import Tasks from '../components/Tasks';
 import { changeTasks } from '../redux/action/action';
 
 class Home extends React.Component {
@@ -9,18 +10,29 @@ class Home extends React.Component {
     this.state = {
       task: '',
       saveTask: [],
+      addBtn: true,
     };
   }
 
   handleChange = ({ target }) => {
+    this.validateInput();
     const { name, value } = target;
     this.setState({
       [name]: value,
     });
   };
 
+  validateInput = () => {
+    const { task } = this.state;
+    if (task.length === 0) {
+      this.setState({ addBtn: false });
+    }
+    this.setState({ addBtn: false });
+  };
+
+
   handleClick = () => {
-    const { saveTask } = this.state;
+    const { saveTask, date } = this.state;
     const newTask = this.state;
     const { changeData } = this.props;
     delete newTask.saveTask;
@@ -29,24 +41,19 @@ class Home extends React.Component {
       task: '',
       date: new Date().toDateString(),
       saveTask,
+      addBtn: true,
     });
-    changeData({ saveTask });
-  };
-
-  removeTask = (e) => {
-    const { saveTask } = this.state;
-    const taskName = e.target.id;
-    const newArr = saveTask.splice(taskName, [taskName]);
-    console.log(newArr);
-    this.setState({ saveTask: newArr });
+    changeData({ saveTask, date });
   };
 
   render() {
-    const { task, saveTask, date } = this.state;
-    console.log(saveTask);
-    // console.log(saveTask)
+    const { stateLogin: login } = this.props; 
+    const { task, addBtn } = this.state;
+
     return (
       <div>
+        <h1>TO-DO LIST</h1>
+        <p>{`Olá ${login.login.userName}, aqui estão suas tarefas `}</p>
         <form action="">
           <input
             value={task}
@@ -55,35 +62,19 @@ class Home extends React.Component {
             onChange={this.handleChange}
             placeholder="digite uma nova tarefa"
           />
-          <button type="button" onClick={this.handleClick}>
+          <button type="button" disabled={addBtn} onClick={this.handleClick}>
             Adicionar
           </button>
         </form>
-        {saveTask.length <= 0 ? (
-          <p>Nenhuma Tarefa</p>
-        ) : (
-          saveTask.map((tarefa, index) => (
-            <div key={index}>
-              <p name={index}>
-                {tarefa.task}
-                <br />
-                {date}
-              </p>
-              <button
-                type="button"
-                name={tarefa.task}
-                id={index}
-                onClick={this.removeTask}
-              >
-                Finalizar Tarefa
-              </button>
-            </div>
-          ))
-        )}
+        <Tasks />
       </div>
     );
   }
 }
+
+const mapStateToProps = (state) => ({
+  stateLogin: state.reducerLogin,
+});
 
 const mapDispatchToProps = (dispatch) => ({
   changeData: (state) => {
@@ -91,4 +82,4 @@ const mapDispatchToProps = (dispatch) => ({
   },
 });
 
-export default connect(null, mapDispatchToProps)(Home);
+export default connect(mapStateToProps, mapDispatchToProps)(Home);

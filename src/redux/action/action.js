@@ -1,5 +1,6 @@
 export const CHANGE_LOGIN = 'CHANGE_LOGIN';
 export const CHANGE_TASKS = 'CHANGE_TASKS';
+export const REMOVE_TASK = 'REMOVE_TASK';
 
 export const changeLogin = (payload) => ({
   type: CHANGE_LOGIN,
@@ -9,4 +10,9 @@ export const changeLogin = (payload) => ({
 export const changeTasks = (payload) => ({
   type: CHANGE_TASKS,
   payload,
+});
+
+export const removeTask = (task) => ({
+  type: REMOVE_TASK,
+  payload: task
 });

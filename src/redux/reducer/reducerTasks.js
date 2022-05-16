@@ -1,4 +1,4 @@
-import { CHANGE_TASKS } from '../action/action';
+import { CHANGE_TASKS, REMOVE_TASK } from '../action/action';
 
 const INITIAL_STATETASKS = {
   task: {
@@ -13,6 +13,9 @@ export const reducerTasks = (state = INITIAL_STATETASKS, action) => {
         ...state,
         task: action.payload,
       };
+    case REMOVE_TASK:
+      const filteredArray = state.task.saveTask.filter((task) => task !== action.payload);
+      return {...state, task: filteredArray}
     default:
       return state;
   }

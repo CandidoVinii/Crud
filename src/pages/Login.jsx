@@ -9,16 +9,15 @@ class Login extends Component {
     super();
 
     this.state = {
-      email: '',
+      userName: '',
       password: '',
       actionButton: true,
     };
   }
 
   validate = () => {
-    const { email, password } = this.state;
-    const regex = /\S+@\S+\.\S+/;
-    if (regex.test(email) && password.length > 3) {
+    const { userName, password } = this.state;
+    if (userName.length > 3 && password.length > 3) {
       return this.setState({
         actionButton: false,
       });
@@ -33,15 +32,15 @@ class Login extends Component {
     this.validate();
   };
   userClick = () => {
-    const { email, password } = this.state;
+    const { userName, password } = this.state;
     const { changeData } = this.props;
-    changeData({ email, password });
+    changeData({ userName, password });
     this.setState({
       logged: true,
     });
   };
   render() {
-    const { email, password, actionButton, logged } = this.state;
+    const { userName, password, actionButton, logged } = this.state;
     return (
       <div>
         {logged ? <Navigate to="/home" /> : ''}
@@ -49,9 +48,9 @@ class Login extends Component {
         <div>
           <input
             type="text"
-            placeholder="email"
-            name="email"
-            value={email}
+            placeholder="Digite seu usuário"
+            name="userName"
+            value={userName}
             onChange={this.handleChange}
           />
 

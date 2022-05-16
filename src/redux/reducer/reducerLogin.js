@@ -2,7 +2,7 @@ import { CHANGE_LOGIN } from '../action/action';
 
 const INITIAL_STATELOGIN = {
   login: {
-    email: '',
+    userName: '',
     password: '',
   },
 };
