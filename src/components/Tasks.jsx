@@ -3,31 +3,26 @@ import { connect } from 'react-redux';
 import { removeTask } from '../redux/action/action';
 
 class Tasks extends React.Component {
-  remove = (e) => {
-    const newTask = this.state;
-    const { removeSelectedTask } = this.props;
-    delete newTask.saveTask;
-    removeSelectedTask();
-  }
   render() {
     const {
-      stateTask: { task },
+      stateTask: { saveTask },
     } = this.props;
-    console.log(task.saveTask);
+    const { remove } = this.props;
+    console.log(saveTask);
     return (
       <div>
-        {task.saveTask.length <= 0 ? (
+        {saveTask.length <= 0 ? (
           <p>Nenhuma Tarefa</p>
         ) : (
-          task.saveTask.map((tarefa, index) => (
-            <ul key={index}>
+          saveTask.map((tarefa) => (
+            <ul key={tarefa.id}>
               <li>
                 {tarefa.task} | {tarefa.date}
               </li>
               <button
                 type="button"
                 name={tarefa.task}
-                onClick={removeTask}
+                onClick={ () => remove(tarefa.id)}
               >
                 Finalizar Tarefa
               </button>
@@ -39,12 +34,12 @@ class Tasks extends React.Component {
   }
 }
 const mapStateToProps = (state) => ({
-  stateTask: state.reducerTasks,
+  stateTask: state.task,
 });
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    removeSelectedTask: (task) => dispatch(removeTask(task)),
+    remove: (id) => dispatch(removeTask(id)),
   };
 };
 

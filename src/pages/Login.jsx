@@ -32,9 +32,9 @@ class Login extends Component {
     this.validate();
   };
   userClick = () => {
-    const { userName, password } = this.state;
+    const { userName } = this.state;
     const { changeData } = this.props;
-    changeData({ userName, password });
+    changeData(userName);
     this.setState({
       logged: true,
     });

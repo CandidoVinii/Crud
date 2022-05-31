@@ -3,15 +3,15 @@ import { connect } from 'react-redux';
 import Tasks from '../components/Tasks';
 import { changeTasks } from '../redux/action/action';
 
+const INITIAL_STATE = {
+  task: '',
+  addBtn: true,
+};
 class Home extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      task: '',
-      saveTask: [],
-      addBtn: true,
-    };
+    this.state = {...INITIAL_STATE};
   }
 
   handleChange = ({ target }) => {
@@ -30,30 +30,23 @@ class Home extends React.Component {
     this.setState({ addBtn: false });
   };
 
+  clearState = () => (this.setState({ ...INITIAL_STATE }));
 
   handleClick = () => {
-    const { saveTask, date } = this.state;
-    const newTask = this.state;
+    const { task } = this.state;
     const { changeData } = this.props;
-    delete newTask.saveTask;
-    saveTask.push(newTask);
-    this.setState({
-      task: '',
-      date: new Date().toDateString(),
-      saveTask,
-      addBtn: true,
-    });
-    changeData({ saveTask, date });
-  };
+    this.clearState();
+    changeData({task});
+  }
 
   render() {
-    const { stateLogin: login } = this.props; 
+    const { stateLogin: user } = this.props; 
     const { task, addBtn } = this.state;
 
     return (
       <div>
         <h1>TO-DO LIST</h1>
-        <p>{`Olá ${login.login.userName}, aqui estão suas tarefas `}</p>
+        <p>{`Olá ${user.userName}, aqui estão suas tarefas `}</p>
         <form action="">
           <input
             value={task}
@@ -73,7 +66,7 @@ class Home extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  stateLogin: state.reducerLogin,
+  stateLogin: state.user,
 });
 
 const mapDispatchToProps = (dispatch) => ({

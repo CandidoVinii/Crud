@@ -1,10 +1,6 @@
 import { CHANGE_LOGIN } from '../action/action';
 
 const INITIAL_STATELOGIN = {
-  login: {
-    userName: '',
-    password: '',
-  },
 };
 
 export const reducerLogin = (state = INITIAL_STATELOGIN, action) => {
@@ -12,7 +8,7 @@ export const reducerLogin = (state = INITIAL_STATELOGIN, action) => {
     case CHANGE_LOGIN:
       return {
         ...state,
-        login: action.payload,
+        userName: action.payload,
       };
     default:
       return state;

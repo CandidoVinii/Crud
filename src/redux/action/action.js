@@ -12,7 +12,7 @@ export const changeTasks = (payload) => ({
   payload,
 });
 
-export const removeTask = (task) => ({
+export const removeTask = (id) => ({
   type: REMOVE_TASK,
-  payload: task
+  id,
 });
