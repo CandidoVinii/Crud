@@ -1,9 +1,7 @@
 import { CHANGE_TASKS, REMOVE_TASK } from '../action/action';
 
 const INITIAL_STATETASKS = {
-  task: {
     saveTask: [],
-  },
 };
 
 export const reducerTasks = (state = INITIAL_STATETASKS, action) => {
@@ -11,11 +9,13 @@ export const reducerTasks = (state = INITIAL_STATETASKS, action) => {
     case CHANGE_TASKS:
       return {
         ...state,
-        task: action.payload,
+        saveTask: [...state.saveTask, { id: state.saveTask.length, date: new Date().toDateString(), ...action.payload }],
       };
     case REMOVE_TASK:
-      const filteredArray = state.task.saveTask.filter((task) => task !== action.payload);
-      return {...state, task: filteredArray}
+      return {
+        ...state,
+        saveTask: [...state.saveTask.filter(task => task.id !== action.id)]
+      }
     default:
       return state;
   }
